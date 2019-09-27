@@ -4,14 +4,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Recherchez une vidéo !</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" >
 
         <!-- Styles -->
-       
+        <style>
+            .resultDiv{
+                margin-top:30%;
+            }
+            p{
+                font-size:15px;
+            }
+        </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -28,24 +35,17 @@
                     @endauth
                 </div>
             @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    FNAC
+                    Liste des vidéos !
+                    <p>Résultat de recherche pour : @php echo $_GET["lastname"]; @endphp</p>
+                </div>
+                <div class="links">
+                    <a href="/">home</a>
                 </div>
 
-                <div class="links">
-                    <a href="./visitorSearch">visiteur</a>
-                    <a href="./register">S'inscrire</a>
-                    <a href="./profil">Mon profil</a>
-                    <a href="./modifyaccount">Modifier compte</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="resultDiv">
+
                 </div>
             </div>
         </div>

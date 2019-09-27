@@ -4,14 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Recherchez une vidéo !</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link href="{{ asset('/css/styles.css') }}" rel="stylesheet" >
 
         <!-- Styles -->
-       
+        <style>
+            .searchDiv{
+                margin-top:30%;
+            }
+        </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -31,21 +35,29 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    FNAC
+                    Fnac
                 </div>
 
                 <div class="links">
-                    <a href="./visitorSearch">visiteur</a>
-                    <a href="./register">S'inscrire</a>
-                    <a href="./profil">Mon profil</a>
-                    <a href="./modifyaccount">Modifier compte</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="/">home</a>
+                </div>
+
+                <div class="searchDiv">
+                    <form action="./visitorResultSearch">
+                        <fieldset>
+                            <legend>Recherchez une vidéo !</legend>
+                            Type de recherche :<br>
+                            <select name="searchingTypes">
+                                <option value="realisator">realisateur</option>
+                                <option value="actor">acteur</option>
+                            </select>
+                            <br>
+                            Entrez le nom du réalisateur ou de l'acteur<br>
+                            <input type="text" name="lastname" value="">
+                            <br><br>
+                            <input type="submit" value="Submit">
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>
