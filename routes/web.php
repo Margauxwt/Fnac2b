@@ -40,3 +40,6 @@ Route::get('/modifyaccount',function(){
 Route::get('/register',function(){
     return view('register');
 });
+Route::post('/modifyaccount',function(){
+    return view('modifyaccount');
+});

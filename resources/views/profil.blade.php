@@ -44,13 +44,13 @@
             @endphp
         <div id="div_profil">Téléphone fixe :</div>
             @php
-                $user_name=DB::select('select ach_nom from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_name);
+                $user_telfixe=DB::select('select ach_telfixe from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
+                print_r($user_telfixe);
             @endphp
         <div id="div_profil">Téléphone portable :</div>
             @php
-                $user_name=DB::select('select ach_nom from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_name);
+                $user_telportable=DB::select('select ach_telportable from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
+                print_r($user_telportable);
             @endphp
     </body>
 

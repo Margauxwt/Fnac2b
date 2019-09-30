@@ -38,7 +38,7 @@
             <div class="content">
                 <div class="title m-b-md">
                     Liste des vidéos !
-                    <p>Résultat de recherche pour : @php echo $_GET["lastname"]; @endphp</p>
+                    <p>Résultat de recherche pour : {{ $_GET["lastname"] }}</p>
                 </div>
                 <div class="links">
                     <a href="/">home</a>
