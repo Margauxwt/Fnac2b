@@ -31,15 +31,12 @@ Route::get('/visitorResultSearch', function () {
     } 
     return view('visitorResultSearch');
 });
-Route::get('/profil', function(){
-    return view('profil');
-});
-Route::get('/modifyaccount',function(){
-    return view('modifyaccount');
-});
 Route::get('/register',function(){
     return view('register');
 });
-Route::post('/modifyaccount',function(){
-    return view('modifyaccount');
-});
+
+Route::get('/profil', 'UserController@chargerInfos')->route("/profil");
+
+Route::get('/modifyaccount', 'modifyController@begin');
+
+Route::post('/modifyaccount', 'modifyController@update');

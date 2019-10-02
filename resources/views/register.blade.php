@@ -7,7 +7,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-<link href="{{ asset('/css/styles.css') }}" rel="stylesheet" >
+<link href="{{ asset('/css/app.css') }}" rel="stylesheet" >
 
 <!-- Styles -->
 
@@ -17,47 +17,63 @@
 </header>
 
 <body>
-<div>
-    <input type="radio" id="genderChoice1"
-     name="gender" value="Madam">
-    <label for="genderChoice1">Madame</label>
+    <div>
+        <input type="radio" id="genderChoice1"
+        name="gender" value="Madam">
+        <label for="genderChoice1">Madame</label>
 
-    <input type="radio" id="genderChoice2"
-     name="gender" value="Sir">
-    <label for="genderChoice2">Monsieur</label>
+        <input type="radio" id="genderChoice2"
+        name="gender" value="Sir">
+        <label for="genderChoice2">Monsieur</label>
 
-  </div>
+        <input type="radio" id="genderChoice2"
+        name="gender" value="Mll">
+        <label for="genderChoice3">Mademoiselle</label>
+
+    </div>
 
     <div class="content">
     <form action="" method="post">
-    <div id="div_profil"></div>
-    <input type="text" name="lastnameInscription" placeholder="Nom"></input><br>
-    
-    <div id="div_profil"></div>
-    <input type="text" name="surnameInscription" placeholder="Prenom"></input>
-    
-    <div id="div_profil"></div>
-    <input type="text" name="mailInscription" placeholder="E-mail"></input>
+
+        <div id="div_profil">Nom: </div>
+        <input type="text" name="lastnameInscription" ></input><br>
+        
+        <div id="div_profil">Prenom: </div>
+        <input type="text" name="surnameInscription"></input>
+
+        <div id="div_profil">E-mail: </div>
+        <input type="mail" name="mailInscription" ></input>
+
+        <div id="div_profil">Telephone fixe: </div>
+        <input type="text" name="telfixeInscription" ></input>
+
+        <div id="div_profil">Telephone portable: </div>
+        <input type="text" name="telmobileInscription" ></input>
+
+        <div id="div_profil">Mot de passe: </div>
+        <input type="text" name="passwordInscription" ></input>
+
+        <div id="div_profil">Adresse de facturation </div>
+        <input type="text" name="nameAdressFactInscription" placeholder="nom" > </input>
+        <input type="text" name="streetAdressFactInscription" placeholder="rue" > </input>
+        <input type="text" name="CDAdressFactInscription" placeholder="code postale" > </input>
+        <input type="text" name="cityAdressFactInscription" placeholder="ville" > </input>
+
+        <div id="div_profil">Adresse de livraison </div>
+        <input type="text" name="nameAdressLivInscription" placeholder="nom" > </input>
+        <input type="text" name="streetAdressLivInscription" placeholder="rue" > </input>
+        <input type="text" name="CDAdressLivInscription" placeholder="code postale" > </input>
+        <input type="text" name="cityAdressLivInscription" placeholder="ville" > </input>
+        
 
 
-    <div id="div_profil"></div>
-    <input type="text" name="passwordInscription" placeholder="Mot de passe"></input>
 
-
-    <div>
-    <input type="checkbox" id="subscribe" name="subscribe" value="subscribe">
-    <label for="subscribe">Êtes-vous adhérent Fnac ?</label>
-    </div>
-    <div>
-        <button type="submit">Créer mon compte</button>
-    </div>
+        <div>
+            <button type="submit">Créer mon compte</button>
+        </div>
 
 
     </form>
-
-
-
-
 
 </body>
 
