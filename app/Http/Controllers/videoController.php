@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Produit;
+use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

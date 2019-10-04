@@ -94,6 +94,7 @@
         height:auto;
         display: flex;
         flex-direction: row;
+        flex-wrap: wrap;
         }
 
         .video {
@@ -105,6 +106,22 @@
         justify-content: space-between;
         width:25%;
         height:33vh;
+        font-size: 10px;
+        }
+        #links{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width:100vw;
+            justify-content:center;
+            list-style:none;
+            
+        }
+        #links > div{
+            margin-left:15px;
+        }
+        .visible{
+
         }
         </style>
     </head>
@@ -129,7 +146,6 @@
                 <div class="links">
                     <a href="/">home</a>
                 </div>
-                <p>{{videos}}</p>
                 <div style="padding-left:16px;margin-top:5%;">
                     <h2>Responsive Search Bar : </h2>
                     <input type="text" placeholder="Search.." id="searchUpdate" onkeyup="filter()">
@@ -140,45 +156,144 @@
                     </div>
                     <br>
                     <div id="tableVideo">
-                    <div class="video">
-                        <iframe src="https://www.youtube.com/embed/kDehTEEoFnE" width="100%" frameborder="0" allowfullscreen></iframe> 
-                        <div>Acteur</div>
-                        <div>Createur</div>
+                        @foreach ($videos as $video)
+                            <div class="video visible">
+                                <iframe
+                                    src="https://www.youtube.com/embed/{{$video->vid_urlphoto}}">
+                                </iframe>
+                                <div>{{$video->getAuthor()}}</div>
+                                <div>{{$video->getActor()}}</div>
+                            </div>
+                        @endforeach
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
+                        <div class="video visible">
+                            <div></div>
+                            <div>Bonjour</div>
+                            <div>Bonjour</div>
+                        </div>
                     </div>
-                    <div class="video">
-                        <iframe src="https://www.youtube.com/embed/kDehTEEoFnE" width="100%" frameborder="0" allowfullscreen></iframe> 
-                        <div>Maria Anders, Mathis Figuet</div>
-                        <div>Germany</div>
-                    </div>
-                    <div class="video">
-                        <iframe src="https://www.youtube.com/embed/kDehTEEoFnE" width="100%" frameborder="0" allowfullscreen></iframe> 
-                        <div>Roland Mendel</div>
-                        <div>Austria</div>
-                    </div>
-                    <div class="video">
-                        <iframe src="https://www.youtube.com/embed/kDehTEEoFnE" width="100%" frameborder="0" allowfullscreen></iframe> 
-                        <div>Helen Bennett</div>
-                        <div>UK</div>
+                    <div id="links">
+                        
                     </div>
                 </div>
             </div>
         </div>
         <script type="text/javascript">
+        table = document.querySelectorAll(".video");
+        links = document.querySelector("#links");
+        page();
+        function page()
+        {
+            visible = document.querySelectorAll(".visible");
+            links.innerHTML = "";
+            if(visible.length > 8)
+            {
+                for (var i = 1; i-1 < visible.length/8; i++) {
+                    link = document.createElement("div");
+                    link.innerHTML = i;
+                    link.addEventListener("click", function(){
+                        for(var j = 0; j<visible.length-1; j++)
+                        {
+                            visible[j].style.display = "none";
+                            visible[j].classList.remove("visible")
+                        }
+                        console.log()
+                        for(var j = this.innerHTML*8-8; j<this.innerHTML*8-1; j++)
+                        {
+                            if(typeof(visible[j]) != "undefined")
+                                visible[j].style.display = "";
+                        }
+                    })
+                    links.appendChild(link);
+                }
+                for(var j = 7; j<visible.length-1; j++)
+                {
+                    visible[j].style.display = "none";
+                    visible[j].classList.remove("visible")
+                }
+            }
+        }
+
         function filter(){
             var search = document.querySelector("#searchUpdate");
             var type = document.querySelector("#Type");
-            var table = document.querySelectorAll(".video");
-            var indexType = 1;
+            var indexType = 2;
 
             if(type.value == "Createur")
-                indexType = 2;
+                indexType = 1;
 
             for (var i = table.length - 1; i >= 0; i--) {
                 if(table[i].children[indexType].innerHTML.toUpperCase().indexOf(search.value.toUpperCase()) > -1)
+                {
                     table[i].style.display = "";
+                    table[i].classList.add("visible")
+                }
                 else
+                {
+                    table[i].classList.remove("visible")
                     table[i].style.display = "none";
+                }
             }
+            page();
         }
         </script>
     </body>

@@ -24,49 +24,53 @@
         {{csrf_field()}}
         <h3>Informations relatives à votre profil</h3>
 
+        @php
+            $user = $users[0];
+        @endphp
+
+
         <div id="div_profil">Mon nom :</div>
-        <input type="text" name="lastnameBuyer" placeholder={{session()->get("ach_nom")}} value={{session()->get("ach_nom")}} required /><br>
+        <input type="text" name="lastnameBuyer" placeholder={{$user->ach_nom}} value={{$user->ach_nom}} required /><br>
 
         <div id="div_profil">Mon prénom :</div>
-        <input type="text" name="firstnameBuyer" placeholder={{session()->get("ach_prenom")}} value={{session()->get("ach_prenom")}} required />
+        <input type="text" name="firstnameBuyer" placeholder={{$user->ach_prenom}} value={{$user->ach_prenom}} required />
         
         <div id="div_profil">Pseudo :</div>
-        <input type="text" name="surnameBuyer" placeholder={{session()->get("ach_pseudo")}} value={{session()->get("ach_pseudo")}} required />
+        <input type="text" name="surnameBuyer" placeholder={{$user->ach_pseudo}} value={{$user->ach_pseudo}} required />
 
 
         <div id="div_profil">Adresse mail :</div>
-        <input type="email" multiple name="mailBuyer" placeholder={{session()->get("ach_mel")}} value={{session()->get("ach_mel")}} required />
+        <input type="email" multiple name="mailBuyer" placeholder={{$user->ach_mel}} value={{$user->ach_mel}} required />
 
 
         <div id="div_profil">Civilité :</div>
-        <input type="text" name="genderBuyer" placeholder={{session()->get("ach_civilite")}} value={{session()->get("ach_civilite")}} required />
+        <input type="text" name="genderBuyer" placeholder={{$user->ach_civilite}} value={{$user->ach_civilite}} required />
 
         <div id="div_profil">Téléphone fixe :</div>
-        <input type="tel" name="fixedTelBuyer" placeholder={{session()->get("ach_telfixe")}} value={{session()->get("ach_telfixe")}} />
+        <input type="tel" name="fixedTelBuyer" placeholder={{$user->ach_telfixe}} value={{$user->ach_telfixe}} />
 
 
         <div id="div_profil">Téléphone portable :</div>
-        <input type="tel" name="mobileTelBuyer" placeholder={{session()->get("ach_telportable")}} value={{session()->get("ach_telportable")}} />
+        <input type="tel" name="mobileTelBuyer" placeholder={{$user->ach_telportable}} value={{$user->ach_telportable}} />
         <br><br>
         
         <h3>Adresse de Facturation</h3>
 
-        <div id="div_profil">Nom</div>
-        <input type="text" name="adrFactBuyer" placeholder={{session()->get("adr_nom")}} value={{session()->get("adr_nom")}} />
+        <div id="div_profil">Nom adresse :</div>
+        
 
-        <div id="div_profil">Rue</div>
-        <input type="text" name="adrFactBuyer" placeholder={{session()->get("adr_rue")}} value={{session()->get("adr_rue")}} />
 
-        <br>
+        
+        <input type="tel" name="" placeholder={{$user->getAdrFactUser(1)}}getAdrFactUser value="" />
+
 
         <input type="submit" name="submit">
 
-        </form>
 
-        @php
-        $users=App\User::all();
-        print_r($users);
-        @endphp
+
+        </form>
+        
+        
 
 </body>
 

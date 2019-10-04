@@ -14,29 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/visitorSearch', function () {
-    return view('visitorSearch');
-});
-Route::get('/visitorResultSearch', function () {
-    if(isset($_GET["realisator"]) && isset($_GET["lastname"]))
-    {
-        if(!empty($_GET["realisator"]) && !empty($_GET["lastname"]))
-        {
-            return view('visitorResultSearch');
-        }
-        else
-        {
-            return view('visitorSearch');
-        }
-    } 
-    return view('visitorResultSearch');
-});
+
+Route::get('/visitorSearch', 'videoController@all');
+
 Route::get('/register',function(){
     return view('register');
 });
+Route::post('/register', 'UserController@add_user');
 
-Route::get('/profil', 'UserController@chargerInfos')->route("/profil");
+Route::get('/profil', 'UserController@index');
 
-Route::get('/modifyaccount', 'modifyController@begin');
-
-Route::post('/modifyaccount', 'modifyController@update');
+Route::get('/modifyaccount', 'UserController@indexAccountModify');
+Route::post('/modifyaccount', 'UserController@update');

@@ -17,41 +17,24 @@
     </header>
 
     <body>
-        <div id="div_profil">Mon nom :</div>
-            @php
-                $user_name=DB::select('select ach_nom from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_name);
-            @endphp
-        <div id="div_profil">Mon prénom :</div>
-            @php
-                $user_prename=DB::select('select ach_prenom from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_prename);
-            @endphp
-        <div id="div_profil">Pseudo :</div>
-            @php
-                $user_pseudo=DB::select('select ach_pseudo from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_pseudo);
-            @endphp
-        <div id="div_profil">Adresse mail :</div>
-            @php
-                $user_mel=DB::select('select ach_mel from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_mel);
-            @endphp
-        <div id="div_profil">Civilité :</div>
-            @php
-                $user_civilite=DB::select('select ach_civilite from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_civilite);
-            @endphp
-        <div id="div_profil">Téléphone fixe :</div>
-            @php
-                $user_telfixe=DB::select('select ach_telfixe from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_telfixe);
-            @endphp
-        <div id="div_profil">Téléphone portable :</div>
-            @php
-                $user_telportable=DB::select('select ach_telportable from t_e_acheteur_ach where ach_id = :id', ['id' => 1]);
-                print_r($user_telportable);
-            @endphp
+
+    @php 
+        $user = $users[1];
+    @endphp
+
+    <div class="div_votre_profil">Votre nom : {{$user->ach_nom}}</div>
+    <div class="div_votre_profil">Votre prénom : {{$user->ach_prenom}}</div>
+    <div class="div_votre_profil">Votre pseudo : {{$user->ach_pseudo}}</div>
+    <div class="div_votre_profil">Votre adresse mail : {{$user->ach_mel}}</div>
+    <div class="div_votre_profil">Votre civilité : {{$user->ach_civilite}}</div>
+    <div class="div_votre_profil">Votre téléphone fixe : {{$user->ach_telfixe}}</div>
+    <div class="div_votre_profil">Votre téléphone portable : {{$user->ach_telportable}}</div>
+    <div class="div_votre_profil">Votre adresse de facturation : {{$user->getAddressFacturationUser(1)}}</div>
+    <div class="div_votre_profil">Votre adresse de livraison : {{$user->getAddressLivraisonUser(1)}}</div>
+    <div class="div_votre_profil">Votre magasin préféré : {{$user->getMagasinPrefUser(1)}}</div>
+
+    <br>
+    <a href="/modifyaccount">Modifier mes informations</a>
     </body>
 
     <footer>

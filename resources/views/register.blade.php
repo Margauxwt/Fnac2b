@@ -17,60 +17,61 @@
 </header>
 
 <body>
-    <div>
-        <input type="radio" id="genderChoice1"
-        name="gender" value="Madam">
-        <label for="genderChoice1">Madame</label>
-
-        <input type="radio" id="genderChoice2"
-        name="gender" value="Sir">
-        <label for="genderChoice2">Monsieur</label>
-
-        <input type="radio" id="genderChoice2"
-        name="gender" value="Mll">
-        <label for="genderChoice3">Mademoiselle</label>
-
-    </div>
 
     <div class="content">
-    <form action="" method="post">
+    <form action="" method="post"> 
+    {{csrf_field()}}
 
-        <div id="div_profil">Nom: </div>
-        <input type="text" name="lastnameInscription" ></input><br>
+        <div>
+            <input type="radio" id="Mme"
+            name="genderInscription" value="Mme" required>
+            <label for="Mme">Madame</label>
+
+            <input type="radio" id="M."
+            name="genderInscription" value="M.">
+            <label for="M.">Monsieur</label>
+
+            <input type="radio" id="Mlle"
+            name="genderInscription" value="Mlle">
+            <label for="Mlle">Mademoiselle</label>
+
+        </div>
+
+        <div id="div_profil">Nom*: </div>
+        <input type="text" name="lastnameInscription" required ></input><br>
         
-        <div id="div_profil">Prenom: </div>
-        <input type="text" name="surnameInscription"></input>
+        <div id="div_profil">Prenom*: </div>
+        <input type="text" name="surnameInscription" required></input>
 
-        <div id="div_profil">E-mail: </div>
-        <input type="mail" name="mailInscription" ></input>
+        <div id="div_profil">Pseudo*: </div>
+        <input type="text" name="pseudoInscription" required></input>
 
-        <div id="div_profil">Telephone fixe: </div>
-        <input type="text" name="telfixeInscription" ></input>
+        <div id="div_profil">E-mail*: </div>
+        <input type="email" name="mailInscription" required ></input>
 
-        <div id="div_profil">Telephone portable: </div>
-        <input type="text" name="telmobileInscription" ></input>
+        <div id="div_profil">Telephone fixe**: </div>
+        <input type="number" name="fixedtelInscription" ></input>
 
-        <div id="div_profil">Mot de passe: </div>
-        <input type="text" name="passwordInscription" ></input>
+        <div id="div_profil">Telephone portable**: </div>
+        <input type="number" name="mobiletelInscription" ></input>
 
-        <div id="div_profil">Adresse de facturation </div>
-        <input type="text" name="nameAdressFactInscription" placeholder="nom" > </input>
-        <input type="text" name="streetAdressFactInscription" placeholder="rue" > </input>
-        <input type="text" name="CDAdressFactInscription" placeholder="code postale" > </input>
-        <input type="text" name="cityAdressFactInscription" placeholder="ville" > </input>
+        <?php 
+            if(isset($_POST['fixedtelInscription']) && $_POST['mobiletelInscription'] = '' ){
+                echo 'Veuillez remplir correctement les champs';
+            }
+        ?>
 
-        <div id="div_profil">Adresse de livraison </div>
-        <input type="text" name="nameAdressLivInscription" placeholder="nom" > </input>
-        <input type="text" name="streetAdressLivInscription" placeholder="rue" > </input>
-        <input type="text" name="CDAdressLivInscription" placeholder="code postale" > </input>
-        <input type="text" name="cityAdressLivInscription" placeholder="ville" > </input>
-        
+        <div id="div_profil">Mot de passe*: </div>
+        <input type="password" name="passwordInscription" required ></input>
 
-
-
+ 
         <div>
             <button type="submit">Créer mon compte</button>
         </div>
+
+        <p> Les champs marqués d'un * sont obligatoires <br/> 
+            Il est obligatoire de remplir au moins un des champs marqués d'un **
+        </p>
 
 
     </form>
