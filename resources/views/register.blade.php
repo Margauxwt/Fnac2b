@@ -17,67 +17,67 @@
 
 </head>
 <header>
-    <h1 id="title_contact_information">Mes coordonnées</h1>
+    <h1>Mes coordonnées</h1>
 </header>
 
 <body>
 
     <div class="content">
-    <form action="" method="post"> 
-    {{csrf_field()}}
+        <form action="" method="post"> 
+        {{csrf_field()}}
+        <!-- Formulaire d'inscription -->
 
-        <div>
-            <input type="radio" id="Mme"
-            name="genderInscription" value="Mme" required>
-            <label for="Mme">Madame</label>
+            <div>
 
-            <input type="radio" id="M."
-            name="genderInscription" value="M.">
-            <label for="M.">Monsieur</label>
+                <input type="radio" id="Mme"
+                name="genderInscription" value="Mme" required>
+                <label for="Mme">Madame</label>
 
-            <input type="radio" id="Mlle"
-            name="genderInscription" value="Mlle">
-            <label for="Mlle">Mademoiselle</label>
+                <input type="radio" id="M."
+                name="genderInscription" value="M.">
+                <label for="M.">Monsieur</label>
 
-        </div>
+                <input type="radio" id="Mlle"
+                name="genderInscription" value="Mlle">
+                <label for="Mlle">Mademoiselle</label>
 
-        <div id="div_profil">Nom*: </div>
-        <input type="text" name="lastnameInscription" required ></input><br>
-        
-        <div id="div_profil">Prenom*: </div>
-        <input type="text" name="surnameInscription" required></input>
+            </div>
 
-        <div id="div_profil">Pseudo*: </div>
-        <input type="text" name="pseudoInscription" required></input>
+            <div id="div_profil">Nom*: </div>
+            <input type="text" name="lastnameInscription" required ><br>
+                    
+            <div id="div_profil">Prenom*: </div>
+            <input type="text" name="surnameInscription" required>
 
-        <div id="div_profil">E-mail*: </div>
-        <input type="email" name="mailInscription" required ></input>
+            <div id="div_profil">Pseudo*: </div>
+            <input type="text" name="pseudoInscription" required>
 
-        <div id="div_profil">Telephone fixe**: </div>
-        <input type="tel" name="fixedtelInscription" ></input>
+            <div id="div_profil">E-mail*: </div>
+            <input type="email" name="mailInscription" required >
 
-        <div id="div_profil">Telephone portable**: </div>
-        <input type="tel" name="mobiletelInscription" ></input>
+            <div id="div_profil">Telephone fixe**: </div>
+            <input type="tel" name="fixedtelInscription" >
 
-        <div id="div_profil">Mot de passe*: </div>
-        <input type="password" name="passwordInscription" required ></input>
+            <div id="div_profil">Telephone portable**: </div>
+            <input type="tel" name="mobiletelInscription" >
 
- 
-        <div>
-            <button type="submit">Créer mon compte</button>
-        </div>
+            <div id="div_profil">Mot de passe*: </div>
+            <input type="password" name="passwordInscription" required >
 
-        <p> Les champs marqués d'un * sont obligatoires <br/> 
-            Il est obligatoire de remplir au moins un des champs marqués d'un **
-        </p>
+            
+            <div>
+                <button type="submit">Créer mon compte</button>
+            </div>
+
+            <p> Les champs marqués d'un * sont obligatoires <br/> 
+                Il est obligatoire de remplir au moins un des champs marqués d'un **
+            </p>
 
 
-    </form>
+        </form>
+    </div>    
 
 </body>
-
-<footer>
-</footer>
 </html>
 
 @endsection

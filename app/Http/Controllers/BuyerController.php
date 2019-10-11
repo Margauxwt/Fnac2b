@@ -72,14 +72,16 @@ class BuyerController extends Controller {
             return view('/register');
         }
 
-        foreach(Buyer::all()->FindOrFail() as $buyer)
+        foreach(Buyer::all() as $buyer)
         {
             if($buyer["ach_mel"] == $_POST["mailInscription"])
             {
-                echo "<p style='color:red;'> Pseudo déjà utilisé. Veuillez choisir un autre pseudo.</p>";
+                echo "<p style='color:red;'> Mail déjà utilisé. Veuillez choisir un autre Mail.</p>";
                 return view('/register');
             }
         }
+
+                     
 
             DB::table('t_e_acheteur_ach')
             ->insert(
@@ -91,10 +93,8 @@ class BuyerController extends Controller {
                 'ach_telfixe'=> $_POST['fixedtelInscription'],
                 'ach_telportable'=> $_POST['mobiletelInscription'],
                 'ach_motpasse'=> $_POST['passwordInscription'],]);
-            header("Refresh:0");
-            return view('/login');
-            
-
+            echo "<p>Compte enregistré</p>";    
+            return view('welcome');
     }
 
 }

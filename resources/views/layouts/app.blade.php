@@ -24,6 +24,9 @@
             <a href="./">Home</a>
             <a href="./visitorSearch">Rechercher vidéo</a>
             <a href="./videoComparator">Comparer vidéos</a>
+            @if (session()->get('panier') !== null)
+                <a href="./basket">Panier({{count(session()->get('panier'))}})</a>
+            @endif
             @if (session()->get('auth') !== null)
                 <!-- Si le visiteur est connecté -->
                 <a href="./logout">Se déconnecter</a>
@@ -33,6 +36,8 @@
                     <!-- Si le visiteur est un admin-->
                     <a href="./rankingVideo">Ranking</a>
                     <a href="./registerOther">S'inscrire (Autre)</a>
+                    <a href="./newActor">Ajouter un acteur</a>
+                    <!-- Ici -->
                     @else
                         @if (session()->get('auth')["type"] == "service_Acheteur")
                         <!-- Si le visiteur est dans le service_Acheteur-->

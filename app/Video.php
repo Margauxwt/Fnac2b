@@ -46,13 +46,16 @@ class Video extends Model
             return $string;
     }
 
-    public static function getVideoByTitre($titre){
+    public static function getVideoByIdVid($id){
         $video = DB::table('t_e_video_vid')
             ->select('*')
-            ->where('t_e_video_vid.vid_titre', $titre)
+            ->where('t_e_video_vid.vid_id', $id)
             ->distinct()
             ->get();
             return $video[0];
     }
+
+
+
 }
 

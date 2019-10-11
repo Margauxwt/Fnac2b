@@ -2,7 +2,7 @@
 @section('content')
     <div class="content" style="overflow-y:scroll;"> 
         <h1 id="titre_modifier_profil">Modifier votre profil</h1>
-        <form action="" method="post">
+        <form action="profil" method="post">
             {{csrf_field()}}
             <h3>Informations relatives à votre profil</h3>
 

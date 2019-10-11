@@ -49,11 +49,15 @@
             <p class="PrixTTC">PrixTTC</p>
             <p class="Stock">Stocks</p>
         </div>
+        <form action="" method="post">
+            @csrf <!-- {{ csrf_field() }} -->
+            <input type="submit" name="delete" class="deleteVideosComparator" value="Reset !">
+        </form>
     @else
         <form action="" method="post">
             @csrf <!-- {{ csrf_field() }} -->
             <div class="content">
-                @if (session()->get('videoComparator')["video1"] === null)
+                @if (session()->get('video1') === null)
                     <div class="split left">
                         <div class="centered">
                             <p>première vidéo à comparée !</p>
@@ -77,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit">
+            <input type="submit" class="ComparatorButton">
         </form>
     @endif
 

@@ -3,17 +3,26 @@
 
 <title>Classement des vidéos</title>
     <header>
-        <h1 id="titre_votre_profil">Votre Profil</h1>
+        <h1>Classement des vidéos</h1>
     </header>
 
     <body>
+        <form action="" method="post">
+        {{csrf_field()}}
+            <h2>Veuillez choisir une video :</h2>
+            <select name="video">
+                @foreach ($videos as $video)
+                    <option value="{{$video->vid_id}}">{{$video->vid_titre}}</option>
+                @endforeach
+            </select>
+            
+            <h2>Veuillez choisir un rang :</h2>
+                <input type="text" name="rang"/>
+        </form>
+        <br>
+        <input type="submit" name="submit">
+        <br>
 
-    @php 
-    $yo= session()->get('auth');
-    print_r($yo);
-    @endphp
 
-    <br>
-    <a href="/modifyaccount" id="lien_modify">Modifier mes informations</a>
     </body>
 @stop  
