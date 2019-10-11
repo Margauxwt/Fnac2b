@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -50,16 +54,10 @@
         <input type="email" name="mailInscription" required ></input>
 
         <div id="div_profil">Telephone fixe**: </div>
-        <input type="number" name="fixedtelInscription" ></input>
+        <input type="tel" name="fixedtelInscription" ></input>
 
         <div id="div_profil">Telephone portable**: </div>
-        <input type="number" name="mobiletelInscription" ></input>
-
-        <?php 
-            if(isset($_POST['fixedtelInscription']) && $_POST['mobiletelInscription'] = '' ){
-                echo 'Veuillez remplir correctement les champs';
-            }
-        ?>
+        <input type="tel" name="mobiletelInscription" ></input>
 
         <div id="div_profil">Mot de passe*: </div>
         <input type="password" name="passwordInscription" required ></input>
@@ -81,3 +79,5 @@
 <footer>
 </footer>
 </html>
+
+@endsection

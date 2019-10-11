@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        
-        <title>Mon Profil</title>
+@extends('layouts.app')
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('/css/app.css') }}" rel="stylesheet" >
-
-        <!-- Styles -->
-       
-    </head>
+<title>Mon Profil</title>
     <header>
         <h1 id="titre_votre_profil">Votre Profil</h1>
     </header>
@@ -19,7 +9,7 @@
     <body>
 
     @php 
-        $user = $users[1];
+        $user = session('auth');
     @endphp
 
     <div class="div_votre_profil">Votre nom : {{$user->ach_nom}}</div>
@@ -29,14 +19,11 @@
     <div class="div_votre_profil">Votre civilité : {{$user->ach_civilite}}</div>
     <div class="div_votre_profil">Votre téléphone fixe : {{$user->ach_telfixe}}</div>
     <div class="div_votre_profil">Votre téléphone portable : {{$user->ach_telportable}}</div>
-    <div class="div_votre_profil">Votre adresse de facturation : {{$user->getAddressFacturationUser(1)}}</div>
-    <div class="div_votre_profil">Votre adresse de livraison : {{$user->getAddressLivraisonUser(1)}}</div>
-    <div class="div_votre_profil">Votre magasin préféré : {{$user->getMagasinPrefUser(1)}}</div>
+    <div class="div_votre_profil">Votre adresse de facturation : {{$user->getAddressFacturationBuyer(1)}}</div>
+    <div class="div_votre_profil">Votre adresse de livraison : {{$user->getAddressLivraisonBuyer(1)}}</div>
+    <div class="div_votre_profil">Votre magasin préféré : {{$user->getMagasinPrefBuyer(1)}}</div>
 
     <br>
-    <a href="/modifyaccount">Modifier mes informations</a>
+    <a href="/modifyaccount" id="lien_modify">Modifier mes informations</a>
     </body>
-
-    <footer>
-    </footer>
-</html>
+@stop

@@ -1,5 +1,5 @@
 <?php
-
+ 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -46,5 +46,13 @@ class Video extends Model
             return $string;
     }
 
+    public static function getVideoByTitre($titre){
+        $video = DB::table('t_e_video_vid')
+            ->select('*')
+            ->where('t_e_video_vid.vid_titre', $titre)
+            ->distinct()
+            ->get();
+            return $video[0];
+    }
 }
 

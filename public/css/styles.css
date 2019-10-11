@@ -1,9 +1,13 @@
 * {
     margin:0;
     padding:0;
-    background-color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     text-decoration: none;
+    color:black;
+    overflow:hidden;
+}
+a{
+    z-index: 10;
 }
 
 .links {
@@ -16,7 +20,7 @@
 .links a {
     color:black;
     text-decoration: none;
-
+    z-index: 10;
 }
 
 .links a:hover {
@@ -42,10 +46,225 @@
 #div_profil{
     padding: 10px;
     font-size: 105%;
+    margin-left: 10px;
 }
 
 #div_profil_information{
     padding: 10px;
     font-size: 115%;
     font-weight: bold;
+}
+
+.div_votre_profil{
+    padding: 10px;
+}
+
+#lien_modify{
+    padding: 10px;
+    color: lightskyblue;
+    text-decoration: underline;
+}
+
+body {
+    font-family: Arial;
+    overflow-y:show;
+}
+.content{
+    height:100vh;
+}
+.split {
+    height: 100%;
+    width: 40%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.left {
+    left: 0;
+}
+
+
+.right {
+    right: 0;
+}
+
+.centered {
+    color:black;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    text-align: center;
+    width:95%;
+}
+input[type=submit] {
+    padding:5px 15px; 
+    background:black; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    color:white;
+    height:30px;
+    width:auto;
+    position:fixed;
+    left:47%;
+    top:50%;
+    z-index:3;
+}
+form{
+    text-align:center;
+}
+p{
+    margin-top:5px;
+}
+.Autheur{
+    height:5vh;
+}
+.Acteur{
+    height:10vh;
+}
+.Synopsis{
+    margin-top:0px;
+    height:19vh;
+}
+.DateParution{
+    height:5vh;
+}
+.Duree{
+    height:5vh;
+}
+.PublicLegal{
+    height:5vh;
+}
+.PrixTTC{
+    height:5vh;
+}
+.Stock{
+    height:5vh;
+}
+#middle{
+    width:20%;
+    height:100vh;
+    position:fixed;
+    transform: translate(-50%, 0%);
+    left:50%;
+    top:29%;
+    text-align:center;
+}
+#middle > p{
+    background-color:white;
+    color:grey;
+}
+
+.menu-top {
+    position: static;
+    border:0 0 10px 0;
+    height: 30px;
+    width: 100%;
+    background-color: rgb(240,240,240);
+    padding-bottom: 5px; 
+    box-shadow: 1px 1px 10px rgb(200,200,200);
+    margin: 0px;
+}
+
+.menu-top a {
+        margin:10px;
+        position: relative;
+        float: right;
+        margin-top:5px;
+        margin-bottom: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav .search-container {
+        float: none;
+    }
+    .topnav a, .topnav input[type=text], .topnav .search-container button {
+        float: none;
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+    .topnav input[type=text] {
+        border: 1px solid #ccc;  
+    }
+}
+
+#tableVideo {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    height:auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 37.5px;
+}
+
+.video {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width:16vw;
+    height:33vh;
+    font-size: 10px;
+}
+#links{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100vw;
+    justify-content:center;
+    list-style:none;
+}
+#links > div{
+    margin-left:15px;
+}
+.visible {
+        
+}
+
+
+#bar-button{
+    width:100vw;
+    height: auto;
+    position: absolute;
+    right:0%;
+    display: inline-block;
+    text-align: right;
+}
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+.button5 {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+
+}
+  
+.button5:hover {
+    background-color: #555555;
+    color: white;
 }

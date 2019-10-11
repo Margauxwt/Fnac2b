@@ -38,6 +38,6 @@ class LoginController extends Controller
     }
 
     public function username() {
-        return "ach_mel";
+        return "name";
     }
 }
