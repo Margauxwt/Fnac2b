@@ -1,8 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\OrderController;
 use App\Video;
 use App\Avis;
+use App\Adress;
+use App\Magasin;
+use App\Relais;
+use App\Order;
+use App\OrderLign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +17,7 @@ class videoController extends Controller
 {
     public function all()
     {
-        return view('visitorSearch', ['videos' => Video::all()]);
+        return view('visitorSearch', ['videos' => Video::orderBy('vid_rank')->get()]);
     }
     public function allComparator()
     {
@@ -45,14 +51,6 @@ class videoController extends Controller
         return view('rankingVideo', ['videos' => Video::all()]);
     }
 
-    /*
-    public function updateRank()
-    {
-        
-    }
-    */
-    
-
     public function detail(){
         if(isset($_POST["panier"]))
         {
@@ -83,87 +81,127 @@ class videoController extends Controller
     public function basket()
     {
         $videos = array();
+        $prix = 0;
         $i = 0;
+        $once = false;
         foreach(session()->get("panier") as $video)
         {
-            if(isset($_POST["delete"]) && !empty($_POST["delete"]) && $video == $_POST["delete"])
+            if(isset($_POST["delete"]) && !empty($_POST["delete"]) && $video == $_POST["delete"] && $once == false)
             {
-                session()->pull("panier",$video);
+                session()->forget("panier.".array_search($_POST["delete"],session()->get("panier")));
+                $once = true;
             }
             else
             {
-                $videos[$i] = Video::where('vid_id', $video)->first();
+                $videoCurrent = Video::where('vid_id', $video)->first();
+                $videos[$i] = $videoCurrent;
+                $prix += $videoCurrent->vid_prixttc;
                 $i++;
             }
+            
         }
-        if($i == 0)
+        if(isset($_POST["buy"]))
+        {
+            if($_POST["type"] == "Me")
+            {
+                $adr = Adress::where('ach_id', session()->get("auth")["ach_id"])->get("adr_id")[0]["adr_id"];
+                $champ = "adr_id";
+            }
+            else 
+            {
+                if($_POST["type"] == "Relais")
+                {
+                    $adr = Relais::where('rel_nom', $_POST["adr"])->get("rel_id")[0]["rel_id"];
+                    $champ = "rel_id";
+                }
+                else
+                {
+                    $adr = Magasin::where('mag_nom', $_POST["adr"])->get("mag_id")[0]["mag_id"];
+                    $champ = "mag_id";
+                }
+            }
+            $date = \Carbon\Carbon::now()->toDateTimeString();
+            $order = Order::create($champ, $adr, $date);
+            foreach(session()->get("panier") as $video)
+            {
+                OrderLign::create($order, $video);
+            }
+            session()->forget("panier");
+            echo "votre commande a bien été enregistrée !";
+            return view('weclome');
+        }
+        else if(isset($_POST["order"]))
+        {
+            return view('order',['videosAch'=> $videos, 'prix' => $prix]);
+        }
+        else if($i == 0)
+        {
+            session()->forget("panier");
             return view('welcome');
+        }
         else
-            return view('basket', ['videosAch'=> $videos]);
+            return view('basket', ['videosAch'=> $videos, 'prix' => $prix]);
     }
 
     public function updateRank()
-    {   $listVideo= DB::table('t_e_video_vid')
-                    ->select('vid_id','vid_titre','vid_rank')
+    {   
+        $listVideo= DB::table('t_e_video_vid')
+                    ->select('*')
                     ->orderBy('vid_rank')
                     ->get();
+        $idVidDepart = $_POST['video'];
         $rangSouhaite = $_POST['rang'];
-        $rangDepart = $_POST['video'];
         $videoDep = DB::table('t_e_video_vid')
                     ->select('*')
-                    ->where('vid_id', $rangDepart)
+                    ->where('vid_id', $idVidDepart)
                     ->get();
 
-        print_r($videoDep);
-        if($rangSouhaite<=0)
+        $videoSouh = DB::table('t_e_video_vid')
+                    ->select('*')
+                    ->where('vid_rank', $rangSouhaite)
+                    ->get();
+        if($rangSouhaite>0)
         {
-            echo "Ce rang n'est pas réalisable nous sommes désolé";
-        }
-        else {
-            if($rangDepart>$rangSouhaite)
+            if($videoDep[0]->vid_rank>$rangSouhaite)
             {
-                if($rangDepart=$rangSouhaite+1)
+                // echo'<br>Depart > Souhait';
+                // echo '<br>rangDepart : '.$videoDep[0]->vid_rank;
+                // echo '<br>rangSouhait : '.$rangSouhaite;
+
+                if($videoDep[0]->vid_rank=$rangSouhaite+1)
                 {
+                    // echo '<br> Ecart de 1';
+                    $vartemp = $rangSouhaite;
                     DB::table('t_e_video_vid')
-                    ->where('vid_id', $rangSouhaite)
+                    ->where('vid_rank', $rangSouhaite)
                     ->update(
-                        ['vid_id'=> $videoDep['vid_id'],
-                        'for_id'=> $videoDep['for_id'],
-                        'vid_titre'=> $videoDep['vid_titre'],
-                        'vid_synopsis'=> $videoDep['vid_synopsis'],
-                        'vid_dateparution'=> $videoDep['vid_dateparution'],
-                        'vid_duree'=> $videoDep['vid_duree'],
-                        'vid_publiclegal'=> $videoDep['vid_publiclegal'],
-                        'vid_urlphoto'=> $videoDep['vid_urlphoto'],
-                        'vid_prixttc'=> $videoDep['vid_prixttc'],
-                        'vid_codebarre'=> $videoDep['vid_codebarre'],
-                        'vid_stock'=> $videoDep['vid_stock'],
-                        'vid_rank'=> $rangDepart,]);
+                        [
+                            'vid_rank'=> $videoDep[0]->vid_rank,
+                        ]);
+
                     DB::table('t_e_video_vid')
-                    ->where('vid_id', $rangDepart)
+                    ->where('vid_rank', $videoDep[0]->vid_rank)
                     ->update(
-                        ['vid_id'=> $videoDep['vid_id'],
-                        'for_id'=> $videoDep['for_id'],
-                        'vid_titre'=> $videoDep['vid_titre'],
-                        'vid_synopsis'=> $videoDep['vid_synopsis'],
-                        'vid_dateparution'=> $videoDep['vid_dateparution'],
-                        'vid_duree'=> $videoDep['vid_duree'],
-                        'vid_publiclegal'=> $videoDep['vid_publiclegal'],
-                        'vid_urlphoto'=> $videoDep['vid_urlphoto'],
-                        'vid_prixttc'=> $videoDep['vid_prixttc'],
-                        'vid_codebarre'=> $videoDep['vid_codebarre'],
-                        'vid_stock'=> $videoDep['vid_stock'],
-                        'vid_rank'=> $rangDepart,]);
+                        [
+                        'vid_rank'=> $vartemp,
+                        ]);
+                        Echo 'Rang ajouté';
                 }
 
+
             }
-            else if ($rangDepart<$rangSouhaite)
+            else if ($videoDep[0]->vid_rank<$rangSouhaite)
             {
-                echo'yo2';
-                echo 'rangDepart : '.$rangDepart;
-                echo 'rangSouhait : '.$rangSouhaite;
+                echo'<br>Depart < Souhait';
+                echo '<br>rangDepart : '.$videoDep[0]->vid_rank;
+                echo '<br>rangSouhait : '.$rangSouhaite;
             }
         }
+        else {
+            echo "Ce rang n'est pas réalisable nous sommes désolé (Rang <=0)";
+        }
+
+
         
         
     }

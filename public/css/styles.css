@@ -70,9 +70,10 @@ a{
 body {
     font-family: Arial;
     overflow-y:show;
+    overflow-x:hidden;
 }
 .content{
-    height:100vh;
+    height:auto;
 }
 .split {
     height: 100%;
@@ -303,4 +304,7 @@ p{
 .signaler_avis{
     color: red;
     text-decoration: underline;
+}
+.videoInOrder{
+    display: inline-block;
 }

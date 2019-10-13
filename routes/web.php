@@ -65,3 +65,15 @@ Route::post('/newActor', 'UserController@add_actor');
 //--------------------------------------------------------------------------------------
 Route::get('/basket', 'videoController@basket'); 
 Route::post('/basket', 'videoController@basket');
+//--------------------------------------------------------------------------------------
+Route::post('/order', 'videoController@buy');
+
+//--------------------------------------------------------------------------------------
+Route::get('/myOrder', 'OrderController@myOrder'); 
+
+//--------------------------------------------------------------------------------------
+Route::get('/orderLastDay', 'OrderController@orderLastDay'); 
+
+//--------------------------------------------------------------------------------------
+Route::get('/manageUsers', 'UserController@manage'); 
+Route::post('/manageUsers', 'UserController@manage'); 

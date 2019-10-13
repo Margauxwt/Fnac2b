@@ -35,12 +35,14 @@
                     @if (session()->get('auth')["type"] == "administrateur")
                     <!-- Si le visiteur est un admin-->
                     <a href="./rankingVideo">Ranking</a>
-                    <a href="./registerOther">S'inscrire (Autre)</a>
+                    <a href="./registerOther">inscrire (Autre)</a>
                     <a href="./newActor">Ajouter un acteur</a>
+                    <a href="./manageUsers">Panel de controle</a>
                     <!-- Ici -->
                     @else
                         @if (session()->get('auth')["type"] == "service_Acheteur")
                         <!-- Si le visiteur est dans le service_Acheteur-->
+                        <a href="./orderLastDay">Voir les commandes</a>
                         @else
                             @if (session()->get('auth')["type"] == "service_Vente")
                             <!-- Si le visiteur est dans le service_Vente-->
@@ -54,6 +56,7 @@
                 @else
                 <!-- Si le visiteur est connecté et est un acheteur-->
                 <a href="./profil">Profil</a>
+                <a href="./myOrder">Mes commandes</a>
                 @endif
             @else
                 <!-- Si le visiteur n'est pas connecté -->

@@ -87,7 +87,16 @@ class Buyer extends Model
 
         return $string;
     }
+    public static function getAddressIDBuyer($id){ //Changement de nom de fonction //Retourne l'adresse de facturation de l'acheteur
+        $adrID = DB::table('t_e_adresse_adr')
+        ->select('t_e_adresse_adr.adr_id')
+        ->join('t_e_acheteur_ach', 't_e_acheteur_ach.ach_id', '=', 't_e_adresse_adr.ach_id')
+        ->where('t_e_acheteur_ach.ach_id', '=', $id)
+        ->where('t_e_adresse_adr.adr_type', '=', 'Facturation')
+        ->get();
 
+        return $adrID;
+    }
     //BEN
     public function getTablAdressFacturationBuyer($id){ //Changement de nom de fonction
         $adrFact = DB::table('t_e_adresse_adr')

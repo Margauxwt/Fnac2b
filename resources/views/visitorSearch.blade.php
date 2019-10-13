@@ -13,7 +13,7 @@
                 <br>
                 <div id="tableVideo">
                     @foreach ($videos as $video)
-                        <a href="/consultationVideo?id={{$video->vid_id}}">
+                        <a href="./consultationVideo?id={{$video->vid_id}}">
                             <div class="video visible">
                                 <iframe
                                     src="https://www.youtube.com/embed/{{$video->vid_urlphoto}}">

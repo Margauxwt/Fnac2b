@@ -63,6 +63,13 @@ class UserController extends Controller {
             echo "<p> Acteur enregistré</p>";    
             return view('newActor');                  
     }
-
+    public function manage()
+    {
+        if(isset($_POST["change"]) && !empty($_POST["change"]))
+        {
+            User::where('id', $_POST["change"])->update(['type' => $_POST["type"]]);
+        }
+        return view("manage", ["users" => User::orderBy('type')->get()]);
+    }
 
 }
