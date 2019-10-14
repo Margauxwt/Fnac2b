@@ -47,8 +47,8 @@
                             @if (session()->get('auth')["type"] == "service_Vente")
                             <!-- Si le visiteur est dans le service_Vente-->
                             @else
-                                @if (session()->get('auth')["type"] == "service Communication")
-                                <!-- Si le visiteur est dans le service Communication-->
+                                @if (session()->get('auth')["type"] == "service_Communication")
+                                    <a href="./abusivenotice">Avis signalé</a>
                                 @endif
                             @endif
                         @endif

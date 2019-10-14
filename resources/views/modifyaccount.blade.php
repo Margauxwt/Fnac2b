@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="content" style="overflow-y:scroll;"> 
+    <div class="content" style="overflow-y:hidden;"> 
         <h1 id="titre_modifier_profil">Modifier votre profil</h1>
         <form action="profil" method="post">
             {{csrf_field()}}
@@ -8,7 +8,6 @@
 
             @php
                 $user = session('auth');
-                $user->refresh();
                 $adrFact = $user->getTablAdressFacturationBuyer('1');
                 $adrLivr = $user->getTablAdressLivraisonBuyer('1');
             @endphp
@@ -65,9 +64,14 @@
             <input type="text" name="cpAdrLivr" placeholder="{{$adrLivr['cp']}}" value="{{$adrLivr['cp']}}"/>
 
             <div id="div_profil">Ville adresse :</div>       
-            <input type="text" name="cityAdrLivr" placeholder="{{$adrLivr['ville']}}" value="{{$adrLivr['ville']}}"/><br><br>
+            <input type="text" name="cityAdrLivr" placeholder="{{$adrLivr['ville']}}" value="{{$adrLivr['ville']}}"/>
 
-            <input type="submit" name="submit">
+            <h3>Point relais</h3>
+                  
+
+            <input type="submit" name="submit" id="submit">
+
         </form>
+        
     </div>
 @stop

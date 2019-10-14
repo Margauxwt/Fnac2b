@@ -4,6 +4,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+
 class Avis extends Model
 {
     protected $table = "t_e_avis_avi";
@@ -40,10 +41,21 @@ class Avis extends Model
         return $string;
     }
 
-    public function supprAvis($id){
-        DB::table('t_e_avis_avi')
+    public static function supprAvis($id){
+        $avis = DB::table('t_e_avis_avi')
+        ->select('*')
+        ->join('t_j_avisabusif_ava', 't_j_avisabusif_ava.avi_id', '=', 't_e_avis_avi.avi_id')
         ->where('t_e_avis_avi.avi_id', '=', $id)
+        ->where('t_j_avisabusif.avi_id', '=', $id)
         ->delete();
+    }
+
+    public static function getAvisAbusif(){
+        $avis = DB::table('t_e_avis_avi')
+        ->select('*')
+        ->join('t_j_avisabusif_ava', 't_j_avisabusif_ava.avi_id', '=', 't_e_avis_avi.avi_id')
+        ->get();
+        return $avis;
     }
 }
 

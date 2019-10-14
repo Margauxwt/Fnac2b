@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Buyer;
+use App\Actor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -57,6 +58,15 @@ class UserController extends Controller {
 
 
     function add_actor() {
+        foreach(Actor::all() as $actor)
+        {
+             if($actor["act_nom"] == $_POST["NameActor"])
+             {
+                 echo "<p style='color:red;'> Acteur déjà existant.</p>";
+                 return view('newActor');
+             }
+        }
+
             DB::table('t_e_acteur_act')
             ->insert(
                 ['act_nom'=> $_POST['NameActor'],]);

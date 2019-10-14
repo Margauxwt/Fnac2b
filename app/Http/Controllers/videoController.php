@@ -48,7 +48,7 @@ class videoController extends Controller
     
     public function allRank()
     {
-        return view('rankingVideo', ['videos' => Video::all()]);
+        return view('rankingVideo', ['videos' => Video::orderBy('vid_rank')->get()]);
     }
 
     public function detail(){
@@ -156,45 +156,40 @@ class videoController extends Controller
                     ->where('vid_id', $idVidDepart)
                     ->get();
 
-        $videoSouh = DB::table('t_e_video_vid')
-                    ->select('*')
+        $videoSouh = Video::select('*')
                     ->where('vid_rank', $rangSouhaite)
                     ->get();
+
+
         if($rangSouhaite>0)
         {
             if($videoDep[0]->vid_rank>$rangSouhaite)
             {
-                // echo'<br>Depart > Souhait';
-                // echo '<br>rangDepart : '.$videoDep[0]->vid_rank;
-                // echo '<br>rangSouhait : '.$rangSouhaite;
 
                 if($videoDep[0]->vid_rank=$rangSouhaite+1)
                 {
-                    // echo '<br> Ecart de 1';
-                    $vartemp = $rangSouhaite;
-                    DB::table('t_e_video_vid')
-                    ->where('vid_rank', $rangSouhaite)
-                    ->update(
-                        [
-                            'vid_rank'=> $videoDep[0]->vid_rank,
-                        ]);
 
                     DB::table('t_e_video_vid')
-                    ->where('vid_rank', $videoDep[0]->vid_rank)
+                    ->where('vid_id', $videoSouh[0]->vid_id)
                     ->update(
                         [
-                        'vid_rank'=> $vartemp,
+                             'vid_rank'=> $videoDep[0]->vid_rank,
+                         ]);
+
+                    DB::table('t_e_video_vid')
+                    ->where('vid_id', $idVidDepart)
+                    ->update(
+                        [
+                            'vid_rank'=> $rangSouhaite,
                         ]);
-                        Echo 'Rang ajouté';
                 }
-
-
+                else {
+                    echo'yo';
+                }
             }
             else if ($videoDep[0]->vid_rank<$rangSouhaite)
             {
-                echo'<br>Depart < Souhait';
-                echo '<br>rangDepart : '.$videoDep[0]->vid_rank;
-                echo '<br>rangSouhait : '.$rangSouhaite;
+
             }
         }
         else {
@@ -202,7 +197,7 @@ class videoController extends Controller
         }
 
 
-        
+        return view('rankingVideo', ['videos'=> Video::orderBy('vid_rank')->get()]);
         
     }
 }

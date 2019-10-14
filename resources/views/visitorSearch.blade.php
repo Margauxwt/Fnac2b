@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="flex-center position-ref full-height" style="overflow-y:hidden;">
+    <div class="flex-center position-ref full-height" style="overflow:hidden;">
         <div class="content">
             <div style="padding-left:16px;margin-top:5%;">
                 <h2>Type Search Bar : </h2>
@@ -11,7 +11,7 @@
                 </select>
                 </div>
                 <br>
-                <div id="tableVideo">
+                <div id="tableVideo" style="overflow-x:hidden;">
                     @foreach ($videos as $video)
                         <a href="./consultationVideo?id={{$video->vid_id}}">
                             <div class="video visible">
