@@ -30,16 +30,35 @@ class UserController extends Controller {
             //if (Hash::check($_POST["password"], $auth->password)) {
                 session_start();
                 session()->put('auth', $auth);
+
+                if(session()->get('messages') === null)
+                    session()->put('messages', array());
+                session()->push('messages', 'Vous etes connecté !');
+
                 return view('welcome');
             //}
         }
         else if(isset($_POST["type"]) && $_POST["type"] == "acheteur")
         {
-            $auth = Buyer::where("ach_mel",$_POST["email"])->firstOrFail();
             //if (Hash::check($_POST["password"], $auth->ach_motpasse)) {
-                session_start();
-                session()->put('auth', $auth);
-                return view('welcome');
+                try{
+                    $auth = Buyer::where("ach_mel",$_POST["email"])->firstOrFail();
+                    session_start();
+                    session()->put('auth', $auth);
+
+                    if(session()->get('messages') === null)
+                        session()->put('messages', array());
+                    session()->push('messages', 'Vous etes connecté !');
+
+                    return redirect('/');
+                } catch (\Exception $e) {
+                    if(session()->get('errors') === null)
+                        session()->put('errors', array());
+                    session()->push('errors', "La combinaison password/login n'est pas correct");
+
+                    return redirect('login');
+                }
+
             //}
         }
 
@@ -51,6 +70,9 @@ class UserController extends Controller {
             session()->forget('auth');
             session()->forget('video1');
             session()->forget('video2');
+            if(session()->get('messages') === null)
+                session()->put('messages', array());
+            session()->push('messages', "Vous etes déconnecté !");  
         }
         return view('welcome');
     }
@@ -62,7 +84,9 @@ class UserController extends Controller {
         {
              if($actor["act_nom"] == $_POST["NameActor"])
              {
-                 echo "<p style='color:red;'> Acteur déjà existant.</p>";
+                if(session()->get('errors') === null)
+                    session()->put('errors', array());
+                session()->push('errors', 'Acteur déjà existant.');
                  return view('newActor');
              }
         }
@@ -70,7 +94,10 @@ class UserController extends Controller {
             DB::table('t_e_acteur_act')
             ->insert(
                 ['act_nom'=> $_POST['NameActor'],]);
-            echo "<p> Acteur enregistré</p>";    
+
+            if(session()->get('messages') === null)
+                session()->put('messages', array());
+            session()->push('messages', "Acteur enregistré !");  
             return view('newActor');                  
     }
     public function manage()

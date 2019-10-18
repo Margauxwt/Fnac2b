@@ -43,10 +43,11 @@ Route::post('/videoComparator', 'videoController@comparator');
 
 //--------------------------------------------------------------------------------------
 Route::get('/profil', 'BuyerController@index'); //Charge les informations profils avec index() quand on va sur son profil
-Route::post('/profil', 'BuyerController@index');
+Route::post('/profil', 'BuyerController@index');    
 //--------------------------------------------------------------------------------------
 Route::get('/modifyaccount', 'BuyerController@indexAccountModify');
-Route::post('/modifyaccount', 'BuyerController@update');
+Route::get('/modifyaccount', 'RelaisController@all');
+Route::post('/modifyaccount', 'BuyerController@modify');
 
 //--------------------------------------------------------------------------------------
 Route::get('/rankingVideo', 'videoController@allRank');
@@ -80,3 +81,6 @@ Route::post('/manageUsers', 'UserController@manage');
 //--------------------------------------------------------------------------------------
 Route::get('/abusivenotice', 'AvisController@avisabusif');
 Route::post('/abusivenotice', 'AvisController@suppravis');
+//--------------------------------------------------------------------------------------
+Route::get('/favorite', 'FavoriteController@allFavorite');
+Route::post('/favorite', 'FavoriteController@DeleteFavorite');

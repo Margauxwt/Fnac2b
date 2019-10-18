@@ -13,7 +13,7 @@
                     <div>{{$video->vid_prixttc}} Euros</div>
                     <button class="button button5" type='submit' name='delete' value='{{$video->vid_id}}'>Supprimer du panier</button>
                 </div>
-            @endforeach
+        @endforeach
         </form>
         @if(session()->get("auth") !== null && session()->get("auth")["type"] === null)
             <form action="" method="POST">

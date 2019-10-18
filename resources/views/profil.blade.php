@@ -11,7 +11,7 @@
         @php 
             $user = session('auth');
         @endphp
-
+    
         <div class="div_votre_profil">Votre nom : {{$user->ach_nom}}</div>
         <div class="div_votre_profil">Votre prénom : {{$user->ach_prenom}}</div>
         <div class="div_votre_profil">Votre pseudo : {{$user->ach_pseudo}}</div>
@@ -22,6 +22,7 @@
         <div class="div_votre_profil">Votre adresse de facturation : {{$user->getAddressFacturationBuyer($user->ach_id)}}</div>
         <div class="div_votre_profil">Votre adresse de livraison : {{$user->getAddressLivraisonBuyer($user->ach_id)}}</div>
         <div class="div_votre_profil">Votre magasin préféré : {{$user->getMagasinPrefBuyer($user->ach_id)}}</div>
+        <div class="div_votre_profil">Votre relais préféré : {{session()->get('rel_id')}}</div>
 
         <br>
         <a href="./modifyaccount" id="lien_modify">Modifier mes informations</a>

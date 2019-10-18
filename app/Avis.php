@@ -42,12 +42,27 @@ class Avis extends Model
     }
 
     public static function supprAvis($id){
+        $avis = DB::table('t_j_avisabusif_ava')
+        ->select('*')
+        ->where('t_j_avisabusif_ava.avi_id', '=', $id)
+        ->delete();
         $avis = DB::table('t_e_avis_avi')
         ->select('*')
-        ->join('t_j_avisabusif_ava', 't_j_avisabusif_ava.avi_id', '=', 't_e_avis_avi.avi_id')
         ->where('t_e_avis_avi.avi_id', '=', $id)
-        ->where('t_j_avisabusif.avi_id', '=', $id)
         ->delete();
+    }
+
+    public static function addAvis($value){
+        DB::table('t_e_avis_avi')
+        ->insert([
+            'ach_id' => $value[3][1], 
+            'vid_id' => $value[3][0],
+            'avi_titre' => $value[1],
+            'avi_detail' => $value[2],
+            'avi_note' => $value[0],
+            'avi_nbutileoui' => 0,
+            'avi_nbutilenon' => 0
+        ]);
     }
 
     public static function getAvisAbusif(){
@@ -56,6 +71,46 @@ class Avis extends Model
         ->join('t_j_avisabusif_ava', 't_j_avisabusif_ava.avi_id', '=', 't_e_avis_avi.avi_id')
         ->get();
         return $avis;
+    }
+
+    public static function signalerAvis($idAvis){
+        $id = DB::table('t_e_acheteur_ach')
+        ->select('t_e_acheteur_ach.ach_id')
+        ->join('t_e_avis_avi', 't_e_avis_avi.ach_id', '=', 't_e_acheteur_ach.ach_id')
+        ->where('t_e_avis_avi.avi_id', '=', $idAvis)
+        ->get();
+        $avisabusif = DB::table('t_j_avisabusif_ava')
+        ->where('avi_id', '=', $idAvis)
+        ->first();
+            if ($avisabusif === null) {
+                $id = $id[0]->ach_id;
+                DB::table('t_j_avisabusif_ava')->insert(['ach_id' => $id, 'avi_id' => $idAvis]);
+            }
+            else{
+                
+            }
+            
+        
+    }
+
+        
+    public static function create($id, $idAvis){
+        $data = new Avis;
+        $data->ach_id = $id;
+        $data->avi_id = $idAvis;
+        $data->save();
+    }
+
+    public static function addOui($idAvis){
+        DB::table('t_e_avis_avi')
+        ->where('t_e_avis_avi.avi_id', '=', $idAvis)
+        ->increment('t_e_avis_avi.avi_nbutileoui', 1);
+    }
+
+    public static function addNon($idAvis){
+        DB::table('t_e_avis_avi')
+        ->where('t_e_avis_avi.avi_id', '=', $idAvis)
+        ->increment('t_e_avis_avi.avi_nbutilenon', 1);
     }
 }
 

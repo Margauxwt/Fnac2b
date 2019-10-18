@@ -55,6 +55,35 @@ class Video extends Model
             return $video[0];
     }
 
+    public static function testCommande($idVid, $idBuyer){
+        $commande = DB::table('t_e_commande_com')
+        ->select('*')
+        ->join('t_j_lignecommande_lec', 't_j_lignecommande_lec.com_id', '=', 't_e_commande_com.com_id')
+        ->where('t_e_commande_com.ach_id', '=', $idBuyer)
+        ->where('t_j_lignecommande_lec.vid_id', '=', $idVid)
+        ->get();
+        if(count($commande) != 0)
+            return true;
+        else
+            return false;
+    }
+    public function getAuthorById($id){
+        $authors = DB::table('t_e_video_vid')
+            ->join('t_e_realisateur_rea', 't_e_realisateur_rea.rea_id', '=', 't_e_video_vid.rea_id')
+            ->select('t_e_realisateur_rea.rea_nom')
+            ->where('t_e_realisateur_rea.rea_id', $id)
+            ->distinct()
+            ->get();
+        
+            $string = "";
+            foreach($authors as $author => $value){
+                if($string != "")
+                    $string = $string.", ".$value->rea_nom;
+                else
+                    $string = $value->rea_nom;
+            }
+            return $string;
+    }
 
 
 }

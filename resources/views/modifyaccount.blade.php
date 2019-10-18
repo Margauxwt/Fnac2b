@@ -2,14 +2,16 @@
 @section('content')
     <div class="content" style="overflow-y:hidden;"> 
         <h1 id="titre_modifier_profil">Modifier votre profil</h1>
-        <form action="profil" method="post">
+        <form action="" method="post">
             {{csrf_field()}}
             <h3>Informations relatives à votre profil</h3>
 
             @php
-                $user = session('auth');
-                $adrFact = $user->getTablAdressFacturationBuyer('1');
-                $adrLivr = $user->getTablAdressLivraisonBuyer('1');
+                $user = session('auth')->refresh();
+                $adrFact = $user->getTablAdressFacturationBuyer($user->ach_id);
+                $adrLivr = $user->getTablAdressLivraisonBuyer($user->ach_id);
+
+
             @endphp
 
 
@@ -41,35 +43,43 @@
             <h3>Adresse de Facturation</h3>
 
             <div id="div_profil">Nom adresse :</div>       
-            <input type="text" name="nameAdrFact" placeholder="{{$adrFact['nom']}}" value="{{$adrFact['nom']}}"/>
+            <input type="text" name="nameAdrFact" placeholder="{{$adrFact['nom']}}" value="{{$adrFact['nom']}}" required/>
 
             <div id="div_profil">Rue adresse :</div>       
-            <input type="text" name="rueAdrFact" placeholder="{{$adrFact['rue']}}" value="{{$adrFact['rue']}}"/>
+            <input type="text" name="rueAdrFact" placeholder="{{$adrFact['rue']}}" value="{{$adrFact['rue']}}" required/>
 
             <div id="div_profil">Code Postal adresse :</div>       
-            <input type="text" name="cpAdrFact" placeholder="{{$adrFact['cp']}}" value="{{$adrFact['cp']}}"/>
+            <input type="text" name="cpAdrFact" placeholder="{{$adrFact['cp']}}" value="{{$adrFact['cp']}}" required/>
 
             <div id="div_profil">Ville adresse :</div>       
-            <input type="text" name="cityAdrFact" placeholder="{{$adrFact['ville']}}" value="{{$adrFact['ville']}}"/><br><br>
+            <input type="text" name="cityAdrFact" placeholder="{{$adrFact['ville']}}" value="{{$adrFact['ville']}}" required/><br><br>
 
             <h3>Adresse de Livraison</h3>
 
             <div id="div_profil">Nom adresse :</div>       
-            <input type="text" name="nameAdrLivr" placeholder="{{$adrLivr['nom']}}" value="{{$adrLivr['nom']}}"/>
+            <input type="text" name="nameAdrLivr" placeholder="{{$adrLivr['nom']}}" value="{{$adrLivr['nom']}}" required/>
 
             <div id="div_profil">Rue adresse :</div>       
-            <input type="text" name="rueAdrLivr" placeholder="{{$adrLivr['rue']}}" value="{{$adrLivr['rue']}}"/>
+            <input type="text" name="rueAdrLivr" placeholder="{{$adrLivr['rue']}}" value="{{$adrLivr['rue']}}" required/>
 
             <div id="div_profil">Code Postal adresse :</div>       
-            <input type="text" name="cpAdrLivr" placeholder="{{$adrLivr['cp']}}" value="{{$adrLivr['cp']}}"/>
+            <input type="text" name="cpAdrLivr" placeholder="{{$adrLivr['cp']}}" value="{{$adrLivr['cp']}}" required/>
 
             <div id="div_profil">Ville adresse :</div>       
-            <input type="text" name="cityAdrLivr" placeholder="{{$adrLivr['ville']}}" value="{{$adrLivr['ville']}}"/>
+            <input type="text" name="cityAdrLivr" placeholder="{{$adrLivr['ville']}}" value="{{$adrLivr['ville']}}" required/>
 
             <h3>Point relais</h3>
-                  
+            <select name="relais">
+                @php
+                    foreach($relais as $rel=>$value)
+                    {
+                        echo '<option value="'.$rel.'">'.$value.'</option>';
+                    }
+                @endphp
+            </select><br>
+            
 
-            <input type="submit" name="submit" id="submit">
+            <button type="submit" name="modify" id="submit" value="{{$user->ach_id}}">Modifier</button>
 
         </form>
         

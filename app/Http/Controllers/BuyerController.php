@@ -20,55 +20,18 @@ class BuyerController extends Controller {
 
     
 
-    public function update() {
-        if((isset($_POST['lastnameBuyer']))&&(isset($_POST['firstnameBuyer']))&&(isset($_POST['surnameBuyer']))&&(isset($_POST['mailBuyer']))&&(isset($_POST['genderBuyer']))&&(isset($_POST['fixedTelBuyer']))&&(isset($_POST['mobileTelBuyer'])))
-        {       $idUser=4;
-                DB::table('t_e_acheteur_ach')
-                ->where('ach_id', $idUser)
-                ->update(
-                    ['ach_nom'=> $_POST['lastnameBuyer'],
-                    'ach_prenom'=> $_POST['firstnameBuyer'],
-                    'ach_pseudo'=> $_POST['surnameBuyer'],
-                    'ach_civilite'=> $_POST['genderBuyer'],
-                    'ach_telfixe'=> $_POST['fixedTelBuyer'],
-                    'ach_telportable'=> $_POST['mobileTelBuyer'],]);
-                    
-                // DB::table('t_e_adresse_adr')
-                // ->where('ach_id', $idUser)
-                // ->update(
-                //     [
-                //         'ach_id' => $idUser,
-                //         'adr_nom'=> $_POST['nameAdrFact'],
-                //         'adr_rue'=> $_POST['rueAdrFact'],
-                //         'adr_cp'=> $_POST['cpAdrFact'],
-                //         'adr_ville'=> $_POST['cityAdrFact'],
-                //         'adr_type' => 'Facturation',                     
-                //     ]);
-                
-                // DB::table('t_e_adresse_adr')
-                // ->where('ach_id', $idUser)
-                // ->update(
-                //     [
-                //         'ach_id' => $idUser,
-                //         'adr_nom'=> $_POST['nameAdrLivr'],
-                //         'adr_rue'=> $_POST['rueAdrLivr'],
-                //         'adr_cp'=> $_POST['cpAdrLivr'],
-                //         'adr_ville'=> $_POST['cityAdrLivr'],
-                //         'adr_type' => 'Livraison',                     
-                //     ]);
-                //header("Refresh:0");
-                return view('modifyaccount', ['users' => Buyer::all()]);
-                Echo '<p>Vos modifications ont bien été enregistrées</p>';
+    public function modify() {
+        if(isset($_POST["modify"])) {
+            Buyer::updateModify($_POST["modify"]);
         }
-        else{
-            Echo"<p>Nous n'avons pas pu enregistrer vos modifications...</p>";
-        }
-
+        return view("profil", ['users' => Buyer::all()]);
     }
 
     function add_user() {
         if($_POST['fixedtelInscription'] == '' && $_POST['mobiletelInscription'] == '' ){
-            echo "<p style='color:red;'> Veuillez  remplir au moins un des champs marqués d'un **</p>";
+            if(session()->get('errors') === null)
+                session()->put('errors', array());
+            session()->push('errors', "Veuillez  remplir au moins un des champs marqués d'un **");
             return view('/register');
         }
 
@@ -76,7 +39,9 @@ class BuyerController extends Controller {
         {
             if($buyer["ach_mel"] == $_POST["mailInscription"])
             {
-                echo "<p style='color:red;'> Mail déjà utilisé. Veuillez choisir un autre Mail.</p>";
+                if(session()->get('errors') === null)
+                    session()->put('errors', array());
+                session()->push('errors', "Mail déjà utilisé. Veuillez choisir un autre Mail.");
                 return view('/register');
             }
         }
@@ -93,7 +58,45 @@ class BuyerController extends Controller {
                 'ach_telfixe'=> $_POST['fixedtelInscription'],
                 'ach_telportable'=> $_POST['mobiletelInscription'],
                 'ach_motpasse'=> $_POST['passwordInscription'],]);
-            echo "<p>Compte enregistré</p>";    
+                
+            $idBuyer = DB::table('t_e_acheteur_ach')
+            ->select('ach_id')
+            ->where('ach_mel','=',$_POST['mailInscription'])
+            ->get();
+                
+             DB::table('t_e_adresse_adr')
+             -> insert(
+                 ['adr_nom' => ' ',
+                  'adr_type' => 'Facturation',
+                  'adr_nom' => ' ',
+                  'adr_rue' => ' ',
+                  'adr_complementrue' => ' ',
+                  'adr_cp' => ' ',                 
+                  'adr_ville' => ' ',
+                  'pay_id' => '1',
+                  'adr_latitude' => '50',
+                  'adr_longitude' => '50',
+                  'ach_id' => $idBuyer[0]->ach_id,
+                 ]);
+            
+                 DB::table('t_e_adresse_adr')
+                 -> insert(
+                     ['adr_nom' => ' ',
+                      'adr_type' => 'Livraison',
+                      'adr_nom' => ' ',
+                      'adr_rue' => ' ',
+                      'adr_complementrue' => ' ',
+                      'adr_cp' => ' ',                 
+                      'adr_ville' => ' ',
+                      'pay_id' => '1',
+                      'adr_latitude' => '50',
+                      'adr_longitude' => '50',
+                      'ach_id' => $idBuyer[0]->ach_id,
+                     ]);            
+                
+            if(session()->get('messages') === null)
+                session()->put('messages', array());
+            session()->push('messages', "Compte enregistré");  
             return view('welcome');
     }
 

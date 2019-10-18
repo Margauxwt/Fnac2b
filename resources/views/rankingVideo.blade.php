@@ -17,12 +17,11 @@
             </select>
             
             <h2>Veuillez choisir un rang :</h2>
-                <input type="text" name="rang"/>
+            <input type="text" name="rang"/>
+            <br>
+            <input type="submit" name="submit">
         </form>
-        <br>
-        <input type="submit" name="submit">
-        <br>
 
-
+        <br>
     </body>
 @stop  

@@ -63,7 +63,7 @@ a{
 
 #lien_modify{
     padding: 10px;
-    color: lightskyblue;
+    color: blue;
     text-decoration: underline;
 }
 
@@ -313,4 +313,56 @@ p{
 }
 .videoInOrder{
     display: inline-block;
+}
+#split3{
+    height: 80vh;
+    width:100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.splitOrder{
+    width: 33vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.splitOrder > p{
+    margin-top: 10%;
+}
+.splitOrder > *{
+    max-width: 50%;
+}
+.error{
+    height: 50px;
+    width: 100vw;
+    background-color:#f44336;
+    color: black;
+    text-align: center;
+    line-height: 50px;
+}
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+}
+.message {
+    padding: 20px;
+    background-color:#4CAF50;;
+    color: white;
+}
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+  
+.closebtn:hover {
+    color: black;
 }
